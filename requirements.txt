@@ -27,5 +27,6 @@ six==1.16.0; python_full_version >= "3.7.1"
 tqdm==4.62.3; python_full_version >= "3.6.0"
 typing-extensions==3.10.0.2; python_version >= "3.6" and python_full_version >= "3.6.0"
 urllib3==1.26.7; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version < "4"
+xmltodict==0.12.0; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
 xxhash==2.0.2; python_version >= "2.6" and python_full_version < "3.0.0" or python_full_version >= "3.3.0"
 yarl==1.7.0; python_version >= "3.6"
