@@ -1,6 +1,6 @@
 # MOCHA Leaderboard Data Generation
 
-First install the packages via poetry or pip install. Then download the MCScript validation set via `wget https://raw.githubusercontent.com/DungLe13/commonsense/master/data/dev-data.xml`.
+First install the packages via poetry or pip install. Then download the MCScript validation set into the `data/` directory via `wget https://raw.githubusercontent.com/DungLe13/commonsense/master/data/dev-data.xml`.
 
 Then run the following: 
 
