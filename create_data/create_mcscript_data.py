@@ -39,17 +39,17 @@ def create_dataset_split(dataset: List[dict], split: str):
             all_answers.append({"id": query_id, "references": answers})
 
     # Write question and answers to file
-    with open(f'data/{DATASET}_{split}_questions.jsonl', 'w', encoding='utf-8') as f:
+    with open(f'data/tmp/{DATASET}_{split}_questions.jsonl', 'w', encoding='utf-8') as f:
         for entry in all_questions:
             f.write(json.dumps(entry, ensure_ascii=False) + '\n')
 
-    with open(f'data/{DATASET}_{split}_answers.jsonl', 'w', encoding='utf-8') as f:
+    with open(f'data/tmp/{DATASET}_{split}_answers.jsonl', 'w', encoding='utf-8') as f:
         for entry in all_answers:
             f.write(json.dumps(entry, ensure_ascii=False) + '\n')
 
 
 def main():
-    with open('data/raw_mcscript-dev-data.xml') as f:
+    with open('data/tmp/raw_mcscript-dev-data.xml') as f:
         data = xmltodict.parse(''.join(f.readlines()))['data']['instance']
 
     # Get first 30% of contexts as validation and the last 70% as test
