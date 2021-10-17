@@ -3,7 +3,6 @@ import json
 import random
 
 import jsonlines
-import tqdm
 
 random.seed(0)
 
@@ -33,9 +32,8 @@ def merge_data(split: str, max_dp_per_dataset: int = 999999) -> None:
     # Run some checks of the data
     seen_ids = set()
     assert len(all_answers) == len(all_questions)
-    print(len(all_answers))
 
-    for i in tqdm.tqdm(range(len(all_answers))):
+    for i in range(len(all_answers)):
         assert all_answers[i]['id'] not in seen_ids
         seen_ids.add(all_answers[i]['id'])
         assert all_answers[i]['id'] == all_questions[i]['id']

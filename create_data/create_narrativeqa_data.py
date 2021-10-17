@@ -21,7 +21,7 @@ def create_dataset_split(dataset: List[dict], split: str):
     for query in dataset:
         context = query['document']['summary']['text']
         question = query['question']['text']
-        answers = list(set(e['text'] for e in query['answers']))
+        answers = sorted(set(e['text'] for e in query['answers']))
         query_id = create_hash(context, question)
         if query_id in seen_ids:
             continue
