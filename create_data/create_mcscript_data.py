@@ -20,7 +20,12 @@ def create_dataset_split(dataset: List[dict], split: str):
 
     for instance in dataset:
         context = instance['text']
-        for query in instance['questions']['question']:
+
+        questions = instance['questions']['question'] if instance['questions'] else []
+        if type(questions) != list:
+            questions = [questions]
+
+        for query in questions:
             question = query['@text']
             answers = [answer_dict['@text'] for answer_dict in query['answer']
                        if answer_dict['@correct'] == 'True']
@@ -49,13 +54,16 @@ def create_dataset_split(dataset: List[dict], split: str):
 
 
 def main():
+    with open('data/tmp/raw_mcscript-train-data.xml') as f:
+        train_dataset = xmltodict.parse(''.join(f.readlines()))['data']['instance']
+
     with open('data/tmp/raw_mcscript-dev-data.xml') as f:
         data = xmltodict.parse(''.join(f.readlines()))['data']['instance']
+        # Get first 30% of contexts as validation and the last 70% as test
+        dev_dataset = data[:int(len(data) * .3)]
+        test_dataset = data[int(len(data) * .3):]
 
-    # Get first 30% of contexts as validation and the last 70% as test
-    dev_dataset = data[:int(len(data) * .3)]
-    test_dataset = data[int(len(data) * .3):]
-
+    create_dataset_split(train_dataset, 'train')
     create_dataset_split(dev_dataset, 'dev')
     create_dataset_split(test_dataset, 'test')
 

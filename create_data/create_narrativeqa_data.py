@@ -3,6 +3,7 @@ import json
 from typing import List
 
 import datasets
+import tqdm
 
 DATASET = "narrativeqa"
 
@@ -18,7 +19,7 @@ def create_dataset_split(dataset: List[dict], split: str):
     all_answers = []
     seen_ids = set()
 
-    for query in dataset:
+    for query in tqdm.tqdm(dataset):
         context = query['document']['summary']['text']
         question = query['question']['text']
         answers = sorted(set(e['text'] for e in query['answers']))
@@ -47,6 +48,7 @@ def create_dataset_split(dataset: List[dict], split: str):
 
 def main():
     narrativeqa = datasets.load_dataset("narrativeqa")
+    create_dataset_split(narrativeqa['train'], 'train')
     create_dataset_split(narrativeqa['validation'], 'dev')
     create_dataset_split(narrativeqa['test'], 'test')
 

@@ -50,11 +50,11 @@ def create_dataset_split(dataset: List[dict], split: str):
 
 
 def main():
-    socialiqa = datasets.load_dataset("social_i_qa")['validation']
+    socialiqa = datasets.load_dataset("social_i_qa")
 
     # Split the validation set of original CosmosQA into dev/test sets by context
     context_to_position = collections.defaultdict(list)
-    for pos, query in enumerate(socialiqa):
+    for pos, query in enumerate(socialiqa['validation']):
         context_to_position[query['context']].append(pos)
 
     # Sample 30% of contexts as validation, 70% as test
@@ -64,11 +64,12 @@ def main():
                      if context not in dev_contexts]
 
     # Get all data points corresponding to the contexts
-    dev_dataset = [socialiqa[pos] for context in dev_contexts
+    dev_dataset = [socialiqa['validation'][pos] for context in dev_contexts
                    for pos in context_to_position[context]]
-    test_dataset = [socialiqa[pos] for context in test_contexts
+    test_dataset = [socialiqa['validation'][pos] for context in test_contexts
                    for pos in context_to_position[context]]
 
+    create_dataset_split(socialiqa['train'], 'train')
     create_dataset_split(dev_dataset, 'dev')
     create_dataset_split(test_dataset, 'test')
 

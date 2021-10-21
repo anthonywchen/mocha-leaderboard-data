@@ -54,6 +54,7 @@ def merge_data(split: str, max_dp_per_dataset: int = 999999) -> None:
 def main():
     merge_data('dev', 1500)
     merge_data('test', 2500)
+    merge_data('train', 20000)
 
 
 if __name__ == "__main__":
