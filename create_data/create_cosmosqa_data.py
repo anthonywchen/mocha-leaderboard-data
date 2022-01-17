@@ -25,6 +25,12 @@ def create_dataset_split(dataset: List[dict], split: str):
         context = query['context']
         question = query['question']
         answers = [query[f"answer{query['label']}"]]
+
+        # Some of the cosmosqa instances have a choice that is none of the above.
+        # Filter these out.
+        if "None of the above choices ." in answers:
+            continue
+
         query_id = create_hash(context, question)
         if query_id in seen_ids:
             continue
